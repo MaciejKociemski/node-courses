@@ -3,6 +3,14 @@ const fs = require("node:fs");
 const promiseFs = require("node:fs").promises;
 const { print } = require("./externalModule");
 
+
+//funkcja pomocna do wyswietlania wynkow w postaci tabeli z wykorzytsnaiem console.table(dane)
+
+function displayResults(label, data) {
+  console.log(label);
+  console.table(data)
+}
+
 // 2. Wykorzystanie wbudowanej funkcji do odczytu plików
 // Wariant 1: Async + callback
 fs.readdir(__dirname, (error, files) => {
@@ -11,21 +19,21 @@ fs.readdir(__dirname, (error, files) => {
     print("Wystąpił błąd: ", error.message);
   } else {
     // 4. Przetworzenie wyniku
-    print("(async + callback) Lista plików: ", files);
+    displayResults("(async + callback) Lista plików: ", files);
   }
 });
 
 // Wariant 2: sync
 try {
     const list = fs.readdirSync(__dirname);
-    print("(sync) Lista plików: ", list);
+    displayResults("(sync) Lista plików: ", list);
 } catch (error) {
     print("Wystąpił błąd: ", error);
 }
 
 // Wariant 3: Async + Promise
 promiseFs.readdir(__dirname).then((list) => {
-    print("(async + promise) Lista plików: ", list);
+    displayResults("(async + promise) Lista plików: ", list);
 }).catch((error) => {
     print("Wystąpił błąd: ", error);
 })
@@ -48,6 +56,11 @@ print("Obecny katalog: ", process.cwd());
 setImmediate(() => {
   print("setImmediate uruchomiony!");
 });
+
+setTimeout(() => {
+  console.log("setTimeout");
+}, 3000);
+
 
 process.nextTick(() => {
   print("nextTick uruchomiony");

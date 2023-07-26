@@ -4,7 +4,7 @@ const { format } = require("date-fns");
 module.exports = {
   print: (...args) => {
     const date = format(new Date(), "yyyy-MM-dd HH:mm:ss");
-
+console.log('text ')
     // const normalDate = new Date();
     // const year = normalDate.getFullYear();
     // const month = (normalDate.getMonth() + 1).toString().padStart(2, "0");
